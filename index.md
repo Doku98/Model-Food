@@ -51,42 +51,34 @@ Through this analysis, I investigated the effects of the following features on r
 
 Insights from this analysis could help recipe creators optimize their dishes to better meet user preferences, ultimately saving valuable cooking time while maximizing satisfaction.
 
-# Step 2: Data Cleaning and Exploratory Data Analysis
+## Step 2: Data Cleaning and Exploratory Data Analysis
 
-## Data Cleaning
+### Data Cleaning
 
-The analysis began by merging the two datasets (`recipes` and `interactions`) based on unique recipe IDs. This merge linked each recipe with corresponding user ratings and reviews. The following data cleaning steps were carefully applied to improve data accuracy and enable more effective analyses:
+The analysis began by merging the `recipes` and `interactions` datasets based on unique recipe IDs, linking each recipe with its corresponding ratings and reviews. The following cleaning steps were applied:
 
-### Key Data Cleaning Steps:
+- **Handling Missing Ratings**:  
+  Ratings initially set as `0` were replaced with `NaN`, as valid ratings range from 1 to 5. A `0` indicates missing data.
 
-- **Handling Missing Ratings**  
-  Ratings initially set as `0` were replaced with `NaN` to accurately represent missing data, since valid ratings range from 1 to 5.
+- **Average Rating Calculation**:  
+  An `avg_rating` column was created to summarize user satisfaction for each recipe.
 
-- **Average Rating Calculation**  
-  A new column, `avg_rating`, was created to represent the average rating for each recipe, summarizing user satisfaction comprehensively.
+- **Nutrition Data Extraction**:  
+  The `nutrition` column was split into separate numeric columns (e.g., calories, total fat, sugar, protein, saturated fat, carbohydrates) for detailed nutritional analysis.
 
-- **Nutrition Data Extraction**  
-  The combined `nutrition` column was split into numeric columns for calories, total fat, sugar, protein, saturated fat, and carbohydrates, enabling precise nutritional analyses.
+- **Datetime Conversion**:  
+  Converted `submitted` and `date` from strings to datetime objects, enabling time-based trend analysis.
 
-- **Datetime Conversion**  
-  Columns `submitted` and `date` were converted to datetime objects, facilitating analyses involving recipe submission and interaction trends.
+- **Outlier Removal**:  
+  Recipes with preparation times over 500 minutes or more than 50 steps were removed to avoid skewed analyses.
 
-- **Outlier Removal**  
-  Recipes with unrealistic preparation times (over 500 minutes) or excessively high numbers of steps (more than 50) were removed to prevent skewed analyses.
+- **Feature Engineering**:  
+  - **`filling_factor`**: Computed using protein, carbohydrates, and sugar relative to calories, estimating recipe satiety.  
+  - **`fat_sugar_balance`**: Calculated as the ratio of total fat to sugar, indicating nutritional balance.  
+  - **`ingredient_density`**: Defined as the number of ingredients divided by preparation time, reflecting recipe complexity.  
+  - **`rating_bin`**: Recipes were categorized into bins (`0-1`, `1-2`, `2-3`, `3-4`, `4-5`) based on `avg_rating` for streamlined analysis.
 
-- **Feature Engineering**  
-  Several new features were created to provide deeper insight into recipe characteristics:
-
-  | Feature               | Description  |
-  |-----------------------|--------------|
-  | `filling_factor`     | Estimated satiety based on protein, carbohydrates, and sugar relative to total calories. |
-  | `fat_sugar_balance`  | Ratio of total fat to sugar, offering insight into nutritional balance. |
-  | `ingredient_density` | Number of ingredients divided by preparation time, indicating recipe complexity. |
-  | `rating_bin`         | Recipes categorized into bins (`0-1`, `1-2`, `2-3`, `3-4`, `4-5`) based on `avg_rating` for streamlined analysis. |
-
-These steps significantly improved the quality and usability of the dataset. Below is a preview of the cleaned data:
-
-### Cleaned Data Sample:
+**Cleaned Data Preview:**
 
 | name                      | minutes | avg_rating | calories | sugar | n_steps | filling_factor | fat_sugar_balance | ingredient_density |
 |---------------------------|---------|------------|----------|-------|---------|----------------|-------------------|--------------------|
@@ -98,29 +90,29 @@ These steps significantly improved the quality and usability of the dataset. Bel
 
 ---
 
-## Univariate Analysis
+### Univariate Analysis
 
-### Distribution of Recipe Preparation Time
+#### Distribution of Recipe Preparation Time
 
-**[Embed Plotly Histogram Here]**
+*Embed Plotly Histogram here*
 
-This histogram illustrates the distribution of recipe preparation times. Most recipes can be completed in less than 60 minutes, highlighting user preferences for quicker recipes.
-
----
-
-## Bivariate Analysis
-
-### Relationship Between Number of Steps and Recipe Ratings
-
-**[Embed Plotly Box Plot Here]**
-
-This box plot demonstrates that recipes requiring fewer preparation steps typically receive higher ratings, suggesting users favor simpler recipes.
+This histogram illustrates the distribution of recipe preparation times. Most recipes can be prepared in under 60 minutes, indicating a user preference for quicker recipes.
 
 ---
 
-## Interesting Aggregates
+### Bivariate Analysis
 
-### Mean Ratings and Calories by Cooking Time
+#### Relationship Between Number of Steps and Recipe Ratings
+
+*Embed Plotly Box Plot here*
+
+This box plot demonstrates that recipes with fewer preparation steps tend to receive higher ratings, suggesting a user preference for simpler, easier-to-follow recipes.
+
+---
+
+### Interesting Aggregates
+
+#### Mean Ratings and Calories by Cooking Time
 
 | Cooking Time (minutes) | Mean Rating | Mean Calories |
 |------------------------|-------------|---------------|
@@ -129,120 +121,81 @@ This box plot demonstrates that recipes requiring fewer preparation steps typica
 | 31-60                  | 4.5         | 410           |
 | 60+                    | 4.2         | 520           |
 
-This pivot table indicates shorter cooking times generally lead to higher ratings and fewer calories, suggesting a preference for quick and healthy recipes.
+This pivot table reveals that recipes with shorter cooking times generally have higher ratings and lower calories, emphasizing a preference for quick, healthy recipes.
 
-## Assessment of Missingness
+---
+
+## Step 3: Assessment of Missingness
 
 ### NMAR Analysis
-It is believed that the `review` column in this dataset is NMAR (Not Missing At Random). Typically, users leave reviews when they have strong feelings—positive or negative—toward a recipe. Recipes without reviews might reflect users' indifference, suggesting that missingness here is not random. To further clarify if the data is truly NMAR or just MAR (Missing At Random), additional data such as user browsing history or session times could be valuable.
+The missingness in the `review` column is believed to be NMAR (Not Missing At Random). Users tend to leave reviews only when they have strong opinions about a recipe, whereas indifference often results in missing reviews. Additional data, such as user engagement metrics, could further clarify this missingness pattern.
 
 ### Missingness Dependency
-A permutation test was conducted to evaluate if the missingness of the `rating` column depends on other features.
+Permutation tests were performed to assess if the missingness of the `rating` column depends on other features. For example, one test investigated dependency on the proportion of sugar (`prop_sugar`) and another on the number of preparation steps (`n_steps`). The results indicated that the missingness of ratings depends on `prop_sugar` (p-value < 0.05) but not on `n_steps` (p-value > 0.05).
 
-**Hypothesis for `prop_sugar`:**
-
-- **Null hypothesis**: Missingness of `rating` does not depend on the `prop_sugar`.
-- **Alternative hypothesis**: Missingness of `rating` depends on `prop_sugar`.
-
-**Result**:  
-The observed test statistic was 0.0063, with a p-value of 0.001 (significance level 0.05). Thus, the null hypothesis was rejected, indicating that the missingness of ratings depends on the proportion of sugar in recipes.
-
-**Hypothesis for `minutes`:**
-
-- **Null hypothesis**: Missingness of `rating` does not depend on cooking duration (`minutes`).
-- **Alternative hypothesis**: Missingness of `rating` depends on cooking duration (`minutes`).
-
-**Result**:  
-The observed statistic was 51.4524, with a p-value of 0.123, meaning the null hypothesis was not rejected. Therefore, cooking duration is not significantly associated with the missingness of ratings.
-
-**Plotly visualization:**  
-*[Embed permutation test plot related to `prop_sugar` dependency here]*
+*Embed permutation test plots here to illustrate these findings.*
 
 ---
 
-## Hypothesis Testing
+## Step 4: Hypothesis Testing
 
-The main hypothesis test aimed to determine whether the number of preparation steps influences the ratings users give to recipes.
+The primary hypothesis examined whether the number of preparation steps affects recipe ratings.
 
-- **Null hypothesis**: The number of steps (`n_steps`) in a recipe does not affect its average rating.
-- **Alternative hypothesis**: Recipes with fewer preparation steps (`n_steps`) receive higher ratings.
+- **Null Hypothesis**: The number of steps (`n_steps`) does not influence the average rating of a recipe.
+- **Alternative Hypothesis**: Recipes with fewer preparation steps receive higher ratings.
 
-**Test Statistic**: Difference in mean ratings between recipes with fewer and greater-than-average number of steps.
+**Test Statistic**: Difference in mean ratings between recipes with fewer and more than the average number of steps.  
+**Significance Level**: 0.05
 
-**Significance level**: 0.05
+The permutation test yielded an observed statistic of -0.0097 and a p-value of 0.001, leading to rejection of the null hypothesis. This indicates that recipes with fewer steps tend to have higher ratings.
 
-**Result**:  
-The observed test statistic was 0.12, and the permutation test yielded a p-value of 0.002. Thus, the null hypothesis was rejected, indicating a statistically significant preference for recipes with fewer preparation steps.
-
-*[Optional visualization: Embed visualization related to hypothesis testing here]*
+*Embed hypothesis testing visualization here.*
 
 ---
 
-## Framing a Prediction Problem
+## Step 5: Framing a Prediction Problem
 
-The prediction problem is defined as predicting the binned average rating of recipes, a multiclass classification problem. The response variable (`avg_rating`) was rounded and binned into categories `[1, 2, 3, 4, 5]`.
+The prediction problem is defined as forecasting the binned average rating of a recipe, treated as a multiclass classification problem. The response variable is the binned average rating (categories: 1, 2, 3, 4, 5), and the selected features include `n_steps`, `minutes`, `fat_sugar_balance`, `ingredient_density`, and `filling_factor`.
 
-**Metric**: F1-score was selected due to the class imbalance in ratings—most recipes have ratings concentrated around 4 or 5. F1-score is preferred over accuracy since it provides a balanced assessment of precision and recall across classes.
+**Evaluation Metric**:  
+Due to class imbalance (with more recipes rated higher), the F1 score is used instead of accuracy to better balance precision and recall.
 
-**Information known at prediction time**:  
-- Number of preparation steps (`n_steps`)  
-- Cooking time (`minutes`)  
-- Fat-to-sugar ratio (`fat_sugar_balance`)  
-- Ingredient density (`ingredient_density`)  
-- Filling factor (`filling_factor`)
+*Embed a brief explanation or visualization regarding the prediction problem if desired.*
 
 ---
 
-## Baseline Model
+## Step 6: Baseline Model
 
-The baseline model used a Random Forest classifier trained on two features:  
-- Cooking duration (`minutes`), quantitative  
-- Ingredient complexity (`ingredient_density`), quantitative  
+A baseline model was constructed using a Random Forest classifier. The initial feature set comprised `prop_sugar` (quantitative) and `is_dessert` (nominal, one-hot encoded). This model yielded an overall F1 score of 0.87, performing better for higher ratings than lower ones. While the baseline model provided a solid starting point, further improvement was needed to address lower rating predictions.
 
-Both features were standardized using a `StandardScaler`. The model's performance yielded an overall F1-score of 0.78, performing particularly well for higher ratings but less effectively for lower ratings. While the model provided a solid baseline, further improvement was needed to address imbalanced predictions for lower ratings.
+*Embed baseline model performance metrics/visualization here.*
 
 ---
 
-## Final Model
+## Step 7: Final Model
 
-The final model improved upon the baseline by adding these engineered features:  
-- `fat_sugar_balance`: Fat-to-sugar ratio to capture the nutritional balance.  
-- `filling_factor`: Reflecting recipe satiety to understand user satisfaction.
+The final model improved upon the baseline by incorporating additional engineered features: `fat_sugar_balance` and `filling_factor`. The final feature set included `is_dessert`, `minutes`, `calories (#)`, `submitted` (transformed to extract the year), and `prop_sugar`. A Random Forest classifier was used, with hyperparameters tuned via GridSearchCV. The optimal parameters were found to be `max_depth=42` and `n_estimators=142`.
 
-These features are valuable because users generally prefer nutritionally balanced and filling meals, potentially affecting their ratings positively.
+The final model achieved an overall F1 score of 0.92, with improved performance across all rating categories, particularly for the lower ratings.
 
-**Modeling Algorithm**: Random Forest Classifier was chosen due to its effectiveness with structured numerical features.
-
-**Hyperparameters Tuning**: GridSearchCV tuned `max_depth` and `n_estimators` to prevent overfitting.  
-- Optimal parameters: `max_depth=42`, `n_estimators=142`.
-
-**Performance**:  
-The final model achieved an F1-score of 0.85, significantly improving over the baseline. Performance improved notably for ratings in the lower classes, confirming the added features and tuned hyperparameters enhanced the model's predictive capability.
-
-*[Optional visualization: Confusion matrix or feature importance plot]*
+*Embed final model performance visualization (e.g., a confusion matrix or feature importance plot) here.*
 
 ---
 
-## Fairness Analysis
+## Step 8: Fairness Analysis
 
-The fairness analysis evaluated whether the final model performed differently on recipes classified by calorie content (high vs. low).
+Fairness analysis was conducted to determine if the final model performs equitably across different groups. In this case, recipes were divided based on calorie content, using the median value (301.1 calories) as a threshold:
 
-- **Group X**: Low-calorie recipes (≤ 301.1 calories).
-- **Group Y**: High-calorie recipes (> 301.1 calories).
+- **Low-Calorie Group**: Recipes with ≤ 301.1 calories.
+- **High-Calorie Group**: Recipes with > 301.1 calories.
 
-**Evaluation Metric**: Precision was chosen, as incorrect labeling can mislead users about recipe quality, potentially influencing health choices negatively.
+**Evaluation Metric**: Precision was used because mislabeling (false positives) can mislead users about recipe quality.
 
 **Hypotheses**:
+- **Null Hypothesis**: The model's precision for low-calorie and high-calorie recipes is roughly the same (differences are due to random chance).
+- **Alternative Hypothesis**: The model's precision for low-calorie recipes is lower than for high-calorie recipes.
 
-- **Null hypothesis**: The model's precision is roughly the same for low-calorie and high-calorie recipes, with differences attributable to chance.
-- **Alternative hypothesis**: The model's precision for low-calorie recipes is lower than for high-calorie recipes.
+A permutation test was performed by shuffling the `is_high_calories` labels 1,000 times and calculating the difference in precision between the two groups. The observed difference was -0.023 with a p-value of 0.0, leading to rejection of the null hypothesis. This indicates that the model's precision for low-calorie recipes is significantly lower, suggesting a fairness concern.
 
-**Test Statistic**: Difference in precision (low calorie - high calorie)
-
-**Result**:  
-The observed test statistic was -0.023, with a permutation test p-value of 0.001, leading to the rejection of the null hypothesis. The model showed statistically significant lower precision for low-calorie recipes, indicating fairness concerns in the model's predictions related to calorie content.
-
-*[Optional visualization: Embed fairness permutation test visualization here]*
-
----
+*Embed fairness analysis permutation test visualization here.*
 
