@@ -1,5 +1,3 @@
-# Investigation of Recipe Ratings and Features
-
 **Author**: Christian Kumagai  
 
 ---
