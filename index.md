@@ -283,11 +283,42 @@ In the next step, we will improve upon this baseline by incorporating more featu
 
 ## Step 7: Final Model
 
-The final model improved upon the baseline by incorporating additional engineered features: `fat_sugar_balance` and `filling_factor`. The final feature set included `is_dessert`, `minutes`, `calories (#)`, `submitted` (transformed to extract the year), and `prop_sugar`. A Random Forest classifier was used, with hyperparameters tuned via GridSearchCV. The optimal parameters were found to be `max_depth=42` and `n_estimators=142`.
+From the baseline model, we identified that `n_steps` and `minutes` had limited predictive power on their own. To improve our predictions, we incorporated additional engineered features and used **Gradient Boosting Regression**, an ensemble learning technique that builds decision trees sequentially, where each tree corrects the errors of the previous ones. This method is well-suited for handling **complex, non-linear relationships** in data.
 
-The final model achieved an overall F1 score of 0.92, with improved performance across all rating categories, particularly for the lower ratings.
+### Prediction Problem:
+Our goal is to predict the **average rating** (`avg_rating`) of a recipe based on its **preparation steps, cooking time, and engineered features**.
 
-*Embed final model performance visualization (e.g., a confusion matrix or feature importance plot) here.*
+### Features Used:
+The final model expands on the baseline by including three additional engineered features:
+- **`n_steps` (Quantitative)**: Number of steps in a recipe.
+- **`minutes` (Quantitative)**: Total time required to prepare the recipe.
+- **`fat_sugar_balance` (Quantitative)**: Ratio of total fat to sugar, reflecting nutritional composition.
+- **`ingredient_density` (Quantitative)**: Number of ingredients divided by preparation time, indicating recipe complexity.
+- **`filling_factor` (Quantitative)**: A derived metric estimating how filling a recipe might be based on macronutrient composition.
+
+### Model Selection & Hyperparameter Tuning:
+To optimize model performance, **RandomizedSearchCV** was used to fine-tune key hyperparameters for **Gradient Boosting Regression**:
+- **`learning_rate`**: Controls the contribution of each tree (tested: 0.01, 0.1, 0.2).
+- **`max_depth`**: Determines tree depth (tested: 3, 5, 10, 15).
+- **`min_samples_split`**: Minimum samples needed to split a node (tested: 2, 5, 10).
+- **`min_samples_leaf`**: Minimum samples required in a leaf node (tested: 1, 2, 5).
+
+A **randomized search with 5 iterations and 3-fold cross-validation** was conducted to efficiently explore the parameter space.
+
+
+### Model Performance:
+- **Evaluation Metric:** Root Mean Squared Error (RMSE)
+- **Baseline Model RMSE:** `0.8508`  
+- **Final Model RMSE:** **`0.7783`** (Lower is better)
+
+### Comparison with Baseline Model:
+| Model          | Features Used                           | RMSE  |
+|---------------|--------------------------------------|-------|
+| **Baseline**  | `n_steps`, `minutes`                | 0.8508 |
+| **Final Model** | `n_steps`, `minutes`, `fat_sugar_balance`, `ingredient_density`, `filling_factor` | **0.7783** |
+
+### Conclusion:
+The **Gradient Boosting model significantly outperformed the baseline Linear Regression model**, showing that incorporating **feature engineering and advanced modeling techniques** improved predictive accuracy. The decrease in RMSE suggests that **recipe complexity, ingredient balance, and filling factor contribute meaningful predictive value**.
 
 ---
 
