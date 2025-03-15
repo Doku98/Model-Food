@@ -136,14 +136,14 @@ The distribution of average ratings is skewed toward higher values, with the maj
   height="600"
   frameborder="0">
 </iframe>
-
+This graph shows the relationship between the number of steps in a recipe and its average rating. While some variations exist, there is no clear trend indicating that recipes with more or fewer steps receive consistently higher ratings. The lack of a strong correlation suggests that step count alone may not be a key determinant of user preferences, and more complex features might be needed for a predictive model.
 <iframe
   src="assets/n_step_binnded_rating_avg.html"
   width="800"
   height="600"
   frameborder="0">
 </iframe>
-
+The box plot categorizes recipes based on binned rating groups and compares their number of steps. The distribution across bins appears relatively uniform, with no significant shift indicating that highly-rated recipes have a distinct number of steps. This further supports the notion that step count alone is not a major factor in determining recipe ratings.
 
 #### Average Cooking Time vs. Average Rating
 <iframe
@@ -152,14 +152,14 @@ The distribution of average ratings is skewed toward higher values, with the maj
   height="600"
   frameborder="0">
 </iframe>
-
+This plot examines whether longer cooking times are associated with higher or lower ratings. The data is highly scattered, and no clear trend emerges, meaning that cooking time does not have a strong influence on ratings. This suggests that additional features, such as ingredient composition or preparation complexity, may be more relevant for predicting user satisfaction.
 <iframe
   src="assets/minutes_binnded_rating_avg.html"
   width="800"
   height="600"
   frameborder="0">
 </iframe>
-
+Similar to the steps-based box plot, this visualization groups recipes by binned ratings and compares their cooking times. The median and interquartile ranges remain relatively stable across all bins, reinforcing the idea that cooking duration does not significantly impact how a recipe is rated. More nuanced features will likely be needed for an effective predictive model.
 
 
 
