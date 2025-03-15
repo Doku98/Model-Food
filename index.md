@@ -100,7 +100,20 @@ Note: This dataset preview has been split into two tables for better readability
 
 #### Distribution of Recipe Preparation Time
 
-*Embed Plotly Histogram here*
+<iframe
+  src="assets/avg_rating_histagram.html"
+  width="800"
+  height="600"
+  frameborder="0">
+</iframe>
+
+<iframe
+  src="assets/n_step_histagram.html"
+  width="800"
+  height="600"
+  frameborder="0">
+</iframe>
+
 
 This histogram illustrates the distribution of recipe preparation times. Most recipes can be prepared in under 60 minutes, indicating a user preference for quicker recipes.
 
