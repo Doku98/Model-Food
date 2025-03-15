@@ -170,6 +170,22 @@ Similar to the steps-based box plot, this visualization groups recipes by binned
 ### NMAR Analysis
 The missingness in the `review` column is believed to be NMAR (Not Missing At Random). Users tend to leave reviews only when they have strong opinions about a recipe, whereas indifference often results in missing reviews. Additional data, such as user engagement metrics, could further clarify this missingness pattern.
 
+<iframe
+  src="assets/n_desc_n_ingred.html"
+  width="800"
+  height="600"
+  frameborder="0">
+</iframe>
+
+<iframe
+  src="assets/reivew_carbs.html"
+  width="800"
+  height="600"
+  frameborder="0">
+</iframe>
+
+
+
 ### Missingness Dependency
 Permutation tests were performed to assess if the missingness of the `rating` column depends on other features. For example, one test investigated dependency on the proportion of sugar (`prop_sugar`) and another on the number of preparation steps (`n_steps`). The results indicated that the missingness of ratings depends on `prop_sugar` (p-value < 0.05) but not on `n_steps` (p-value > 0.05).
 
