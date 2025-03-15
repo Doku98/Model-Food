@@ -57,6 +57,9 @@ Insights from this analysis could help recipe creators optimize their dishes to 
 
 The analysis began by merging the `recipes` and `interactions` datasets based on unique recipe IDs, linking each recipe with its corresponding ratings and reviews. The following cleaning steps were applied:
 
+- **Merging Datasets**:  
+  A left merge was performed between the recipes dataset and the interactions dataset using recipe_id as the key. This ensured that all recipes were retained, even if they had no associated ratings or reviews.
+
 - **Handling Missing Ratings**:  
   Ratings initially set as `0` were replaced with `NaN`, as valid ratings range from 1 to 5. A `0` indicates missing data.
 
@@ -78,7 +81,7 @@ The analysis began by merging the `recipes` and `interactions` datasets based on
   - **`ingredient_density`**: Defined as the number of ingredients divided by preparation time, reflecting recipe complexity.  
   - **`rating_bin`**: Recipes were categorized into bins (`0-1`, `1-2`, `2-3`, `3-4`, `4-5`) based on `avg_rating` for streamlined analysis.
 
-**Cleaned Data Preview:**
+**Cleaned Data Preview:** (230,853 rows)
 Note: This dataset preview has been split into two tables for better readability. However, all data belongs to a single table in the cleaned dataset. The first section contains general recipe information, while the second section includes ratings and engineered features.
 
 | name                         | minutes | contributor_id | submitted  | tags        | n_steps | steps |
