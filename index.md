@@ -108,7 +108,7 @@ Note: This dataset preview has been split into two tables for better readability
 </iframe>
 
 
-This histogram illustrates the distribution of recipe preparation times. Most recipes can be prepared in under 60 minutes, indicating a user preference for quicker recipes.
+The histogram shows that most recipes have fewer than 15 steps, with a steep drop-off beyond this point. This suggests that users and contributors prefer simpler recipes with fewer steps, which may be more convenient for cooking.
 
 ---
 
@@ -123,7 +123,7 @@ This histogram illustrates the distribution of recipe preparation times. Most re
   frameborder="0">
 </iframe>
 
-This box plot demonstrates that recipes with fewer preparation steps tend to receive higher ratings, suggesting a user preference for simpler, easier-to-follow recipes.
+The distribution of average ratings is skewed toward higher values, with the majority of recipes receiving ratings close to 5. This indicates a positive bias in user ratings, suggesting that users are generally satisfied with the recipes they review.
 
 ---
 
