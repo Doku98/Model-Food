@@ -312,10 +312,12 @@ A **randomized search with 5 iterations and 3-fold cross-validation** was conduc
 - **Final Model RMSE:** **`0.7783`** (Lower is better)
 
 ### Comparison with Baseline Model:
-| Model          | Features Used                           | RMSE  |
-|----------------|----------------------------------------|-------|
-| **Baseline**   | `n_steps`, `minutes`                  | 0.8508 |
-| **Final Model**| `n_steps`, `minutes`, `fat_sugar_balance`, `ingredient_density`, `filling_factor` | **0.7783** |
+
+| Model        | Features Used                                                   | RMSE  |
+|-------------|----------------------------------------------------------------|-------|
+| **Baseline**  | n_steps, minutes                                              | 0.8508 |
+| **Final Model** | n_steps, minutes, fat_sugar_balance, ingredient_density, filling_factor | **0.7783** |
+
 
 ### Conclusion:
 The **Gradient Boosting model significantly outperformed the baseline Linear Regression model**, showing that incorporating **feature engineering and advanced modeling techniques** improved predictive accuracy. The decrease in RMSE suggests that **recipe complexity, ingredient balance, and filling factor contribute meaningful predictive value**.
