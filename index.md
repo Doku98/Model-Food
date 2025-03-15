@@ -80,6 +80,7 @@ The analysis began by merging the `recipes` and `interactions` datasets based on
 
 **Cleaned Data Preview:**
 Note: This dataset preview has been split into two tables for better readability. However, all data belongs to a single table in the cleaned dataset. The first section contains general recipe information, while the second section includes ratings and engineered features.
+
 | name                         | minutes | contributor_id | submitted  | tags        | n_steps | steps |
 |------------------------------|---------|---------------|------------|------------|---------|-------|
 | World's Best Brownies        | 40      | 985201        | 2008-10-27 | [...]      | 10      | [...] |
