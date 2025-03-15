@@ -170,12 +170,12 @@ Similar to the steps-based box plot, this visualization groups recipes by binned
 ### NMAR Analysis
 Based on the data and its generating process, the missingness in 'description' and 'review' is likely NMAR, meaning that the reason for missing values is inherent to the unobserved factors related to the missing values themselves rather than the observed data.
 
-####Missingness in 'description' (Likely NMAR)
+#### Missingness in 'description' (Likely NMAR)
 The 'description' column is likely NMAR because the decision to include a description may depend on the complexity of the recipe itself. More complex recipes with many steps may require a description to clarify important details, while very simple recipes (e.g., a two-ingredient dish) may not need one at all. If this is the case, the missingness is related to an intrinsic factor (recipe complexity) rather than an observed variable in the dataset.
 
 To determine if the missingness could instead be MAR, additional data on user engagement and recipe complexity could be useful. For instance, if users who submit longer recipes (in terms of 'n_steps' or 'minutes') are more likely to provide a description, then missingness in 'description' could be explained through an observed variable and would be MAR instead of NMAR.
 
-####Permutation Test: Missingness in 'description' vs. 'n_ingredients'
+#### Permutation Test: Missingness in 'description' vs. 'n_ingredients'
 <iframe
   src="assets/n_desc_n_ingred.html"
   width="800"
@@ -184,7 +184,7 @@ To determine if the missingness could instead be MAR, additional data on user en
 </iframe>
 The test examines whether missing values in the 'description' column are dependent on the number of ingredients in a recipe. The observed difference of -1.08 suggests that recipes missing a description tend to have fewer ingredients on average. The low p-value (0.001) provides strong evidence against the null hypothesis, indicating that the missingness in 'description' is not completely random and is likely Missing At Random (MAR) with respect to 'n_ingredients'
 
-####Missingness in 'review' (Likely NMAR)
+#### Missingness in 'review' (Likely NMAR)
 The 'review' column is also likely NMAR, as users may be selectively choosing whether to leave a review based on their experience with the recipe. If users are only motivated to leave a review when they feel strongly (either positive or negative) about a recipe, while those with neutral opinions remain silent, then missingness in 'review' is dependent on an unobserved factor—personal sentiment—making it NMAR.
 
 However, to determine if the missingness is MAR, further information about user behavior would be necessary. For example, if missing reviews are more common among users who provide fewer total ratings, then missingness could be related to an observed user engagement pattern. Additionally, the amount of carbohydrates in a recipe could influence whether a user leaves a review, as people who follow certain diets (e.g., low-carb or high-carb diets) may be more inclined to leave feedback based on their dietary preferences.
@@ -195,7 +195,7 @@ However, to determine if the missingness is MAR, further information about user 
   height="600"
   frameborder="0">
 </iframe>
-####Permutation Test: Missingness in 'review' vs. 'carbohydrates'
+#### Permutation Test: Missingness in 'review' vs. 'carbohydrates'
 This test investigates whether missing values in the 'review' column are related to the carbohydrate content of recipes. The observed difference of 6.89 shows a slightly higher mean carbohydrate value for recipes with missing reviews. However, the high p-value (0.412) suggests that this difference is not statistically significant, meaning that missingness in 'review' is likely independent of carbohydrate content and could be considered Missing Completely At Random (MCAR).
 
 
@@ -208,12 +208,18 @@ The primary hypothesis examined whether the number of preparation steps affects 
 - **Null Hypothesis**: The number of steps (`n_steps`) does not influence the average rating of a recipe.
 - **Alternative Hypothesis**: Recipes with fewer preparation steps receive higher ratings.
 
-**Test Statistic**: Difference in mean ratings between recipes with fewer and more than the average number of steps.  
+**Test Statistic**: The difference in mean ratings between recipes with fewer and more than the average number of steps. This statistic was chosen because it effectively captures user preferences for simpler recipes.
 **Significance Level**: 0.05
 
-The permutation test yielded an observed statistic of -0.0097 and a p-value of 0.001, leading to rejection of the null hypothesis. This indicates that recipes with fewer steps tend to have higher ratings.
 
-*Embed hypothesis testing visualization here.*
+<iframe
+  src="assets/n_steps_on_rating.html"
+  width="800"
+  height="600"
+  frameborder="0">
+</iframe>
+The permutation test yielded an observed statistic of -0.0097 and a p-value of 0.001, leading to rejection of the null hypothesis. This suggests that recipes with fewer steps may be slightly preferred by users and tend to receive higher ratings. However, the observed effect size is small, indicating that while preparation complexity may have some influence, other factors likely play a larger role in determining recipe popularity.
+
 
 ---
 
