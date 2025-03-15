@@ -100,28 +100,7 @@ Note: This dataset preview has been split into two tables for better readability
 
 #### Distribution of Recipe Preparation Time
 
-## Univariate Analysis
-
-### Distribution of Average Recipe Ratings
-The histogram below displays the distribution of average ratings across all recipes.
-
-<iframe
-  src="assets/avg_rating_histagram.html"
-  width="800"
-  height="600"
-  frameborder="0">
-</iframe>
-
-### Distribution of Number of Steps in Recipes
-The histogram below shows how the number of steps varies across recipes.
-
-<iframe
-  src="assets/n_step_histagram.html"
-  width="800"
-  height="600"
-  frameborder="0">
-</iframe>
-
+*Embed Plotly Histogram here*
 
 This histogram illustrates the distribution of recipe preparation times. Most recipes can be prepared in under 60 minutes, indicating a user preference for quicker recipes.
 
@@ -131,38 +110,7 @@ This histogram illustrates the distribution of recipe preparation times. Most re
 
 #### Relationship Between Number of Steps and Recipe Ratings
 
-## Bivariate Analysis
-
-### Relationship Between Number of Steps and Average Rating
-This plot examines how the number of steps in a recipe correlates with its rating.
-
-<iframe
-  src="assets/n_steps_on_rating.html"
-  width="800"
-  height="600"
-  frameborder="0">
-</iframe>
-
-### Average Rating by Binned Number of Steps
-Recipes are grouped into step-count bins to observe how ratings change with complexity.
-
-<iframe
-  src="assets/n_step_binnded_rating_avg.html"
-  width="800"
-  height="600"
-  frameborder="0">
-</iframe>
-
-### Average Rating by Binned Cooking Time
-This visualization explores how the time required for a recipe impacts its rating.
-
-<iframe
-  src="assets/minutes_binnded_rating_avg.html"
-  width="800"
-  height="600"
-  frameborder="0">
-</iframe>
-
+*Embed Plotly Box Plot here*
 
 This box plot demonstrates that recipes with fewer preparation steps tend to receive higher ratings, suggesting a user preference for simpler, easier-to-follow recipes.
 
@@ -256,4 +204,3 @@ Fairness analysis was conducted to determine if the final model performs equitab
 A permutation test was performed by shuffling the `is_high_calories` labels 1,000 times and calculating the difference in precision between the two groups. The observed difference was -0.023 with a p-value of 0.0, leading to rejection of the null hypothesis. This indicates that the model's precision for low-calorie recipes is significantly lower, suggesting a fairness concern.
 
 *Embed fairness analysis permutation test visualization here.*
-
