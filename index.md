@@ -322,19 +322,31 @@ The **Gradient Boosting model significantly outperformed the baseline Linear Reg
 
 ---
 
-## Step 8: Fairness Analysis
+## Fairness Analysis
 
-Fairness analysis was conducted to determine if the final model performs equitably across different groups. In this case, recipes were divided based on calorie content, using the median value (301.1 calories) as a threshold:
+To assess whether our model exhibits fairness across different rating groups, we conducted a permutation test comparing the residual errors of our final model across various rating bins.
 
-- **Low-Calorie Group**: Recipes with ≤ 301.1 calories.
-- **High-Calorie Group**: Recipes with > 301.1 calories.
+### Choice of Groups and Evaluation Metric
+- **Group X**: Recipes with lower ratings (e.g., 0-1, 1-2, 2-3)
+- **Group Y**: Recipes with higher ratings (e.g., 3-4, 4-5)
+- **Evaluation Metric**: Total Variation Distance (TVD) of residuals
 
-**Evaluation Metric**: Precision was used because mislabeling (false positives) can mislead users about recipe quality.
+### Hypotheses
+- **Null Hypothesis**: The distribution of residuals is independent of the rating bin, meaning the model performs equally well across all rating groups.
+- **Alternative Hypothesis**: The residuals differ significantly across rating bins, suggesting that the model is biased toward predicting better for some rating groups.
 
-**Hypotheses**:
-- **Null Hypothesis**: The model's precision for low-calorie and high-calorie recipes is roughly the same (differences are due to random chance).
-- **Alternative Hypothesis**: The model's precision for low-calorie recipes is lower than for high-calorie recipes.
+### Test Statistic and Significance Level
+- **Test Statistic**: The observed TVD of residuals across rating bins.
+- **Significance Level**: 0.05
 
-A permutation test was performed by shuffling the `is_high_calories` labels 1,000 times and calculating the difference in precision between the two groups. The observed difference was -0.023 with a p-value of 0.0, leading to rejection of the null hypothesis. This indicates that the model's precision for low-calorie recipes is significantly lower, suggesting a fairness concern.
+### Results
+- **Observed TVD**: 1.7112
+- **P-value**: 0.0
 
-*Embed fairness analysis permutation test visualization here.*
+Since the p-value is extremely low (close to 0), we reject the null hypothesis. This indicates that our model does not perform equally well across all rating groups, suggesting a fairness issue. The model tends to make larger errors in predicting lower-rated recipes compared to higher-rated ones.
+
+### Visualization
+The following histogram displays the empirical distribution of the test statistic under the null hypothesis, with the observed TVD marked in red.
+
+<iframe src="assets/fairness_permutation_test.html" width="800" height="400" frameborder="0"></iframe>
+
