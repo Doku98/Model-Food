@@ -213,7 +213,7 @@ The primary hypothesis examined whether the number of preparation steps affects 
 
 
 <iframe
-  src="assets/n_steps_on_rating.html"
+  src="assets/n_desc_n_ingred.html"
   width="800"
   height="600"
   frameborder="0">
@@ -312,11 +312,24 @@ A **randomized search with 5 iterations and 3-fold cross-validation** was conduc
 - **Final Model RMSE:** **`0.7783`** (Lower is better)
 
 ### Comparison with Baseline Model:
+<table>
+  <tr>
+    <th>Model</th>
+    <th>Features Used</th>
+    <th>RMSE</th>
+  </tr>
+  <tr>
+    <td><strong>Baseline</strong></td>
+    <td>n_steps, minutes</td>
+    <td>0.8508</td>
+  </tr>
+  <tr>
+    <td><strong>Final Model</strong></td>
+    <td>n_steps, minutes, fat_sugar_balance, ingredient_density, filling_factor</td>
+    <td><strong>0.7783</strong></td>
+  </tr>
+</table>
 
-| Model        | Features Used                                                   | RMSE  |
-|-------------|----------------------------------------------------------------|-------|
-| **Baseline**  | n_steps, minutes                                              | 0.8508 |
-| **Final Model** | n_steps, minutes, fat_sugar_balance, ingredient_density, filling_factor | **0.7783** |
 
 
 ### Conclusion:
