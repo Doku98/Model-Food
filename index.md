@@ -225,20 +225,59 @@ The permutation test yielded an observed statistic of -0.0097 and a p-value of 0
 
 ## Step 5: Framing a Prediction Problem
 
-The prediction problem is defined as forecasting the binned average rating of a recipe, treated as a multiclass classification problem. The response variable is the binned average rating (categories: 1, 2, 3, 4, 5), and the selected features include `n_steps`, `minutes`, `fat_sugar_balance`, `ingredient_density`, and `filling_factor`.
+From the previous analysis, we explored various factors that may influence recipe ratings. However, rather than just identifying relationships, can we build a model that **predicts** a recipe’s rating based on its attributes? If successful, such a model could help chefs, food bloggers, and recipe developers optimize their recipes to align with user preferences.
 
-**Evaluation Metric**:  
-Due to class imbalance (with more recipes rated higher), the F1 score is used instead of accuracy to better balance precision and recall.
+To address this, we frame the problem as a **regression task**, aiming to predict a recipe’s **average rating** (`avg_rating`) using key recipe characteristics. This predictive approach allows us to determine whether specific features, such as preparation time or ingredient complexity, have a measurable impact on how well a recipe is received.
 
-*Embed a brief explanation or visualization regarding the prediction problem if desired.*
+### Prediction Problem Statement
+- **Type of Prediction:** **Regression**  
+- **Target Variable:** `avg_rating` (Average user rating of a recipe)  
+- **Features Used for Prediction:**
+  - `n_steps` (Number of preparation steps)
+  - `minutes` (Total preparation time)
+  - `filling_factor` (Estimate of how filling a recipe is)
+  - `fat_sugar_balance` (Ratio of fat to sugar)
+  - `ingredient_density` (Complexity measure based on number of ingredients and time)
+
+### Evaluation Metric
+Since this is a regression problem, an appropriate metric is needed to assess model performance:
+
+- **Chosen Metric:** **Root Mean Squared Error (RMSE)**
+- **Justification:** RMSE is preferred as it penalizes larger errors more than Mean Absolute Error (MAE), making it effective for capturing deviations from actual ratings.
+
+### Considerations for Prediction Time
+At the time of prediction, all selected features are **available before a user rates a recipe**, making them suitable for training the model. No future-dependent data, such as user reviews, is included to avoid data leakage.
+
+By developing this predictive model, we aim to gain deeper insights into the characteristics of highly-rated recipes and assess whether these attributes can meaningfully forecast user preferences.
 
 ---
 
 ## Step 6: Baseline Model
 
-A baseline model was constructed using a Random Forest classifier. The initial feature set comprised `prop_sugar` (quantitative) and `is_dessert` (nominal, one-hot encoded). This model yielded an overall F1 score of 0.87, performing better for higher ratings than lower ones. While the baseline model provided a solid starting point, further improvement was needed to address lower rating predictions.
+To establish a baseline for predicting recipe ratings, a **Linear Regression** model was trained using two fundamental features: **number of steps (`n_steps`)** and **preparation time (`minutes`)**. These features were chosen based on their potential influence on recipe complexity and user satisfaction.
 
-*Embed baseline model performance metrics/visualization here.*
+### Features Used:
+- **`n_steps` (Quantitative)**: Represents the total number of steps in a recipe.
+- **`minutes` (Quantitative)**: Represents the total time required to prepare a recipe.
+
+Since both features are continuous numerical variables, **no categorical encoding was necessary**. However, these features may exist on different scales, so **StandardScaler** was applied to normalize them before feeding them into the model.
+
+### Model Implementation:
+A **Linear Regression** model was implemented within a **scikit-learn pipeline**, which included:
+1. **StandardScaler** – Standardizes the features to ensure consistent scaling.
+2. **Linear Regression** – A simple model to establish a baseline prediction.
+
+The dataset was split into training and testing sets (**80%-20% split**), and the model was trained using the training data.
+
+### Baseline Model Performance:
+- **Evaluation Metric:** Root Mean Squared Error (RMSE)
+- **Baseline RMSE:** **0.8508**
+
+### Analysis of Performance:
+The RMSE value of **0.8508** suggests the average deviation of predicted ratings from actual user ratings. Given that recipe ratings typically range from 1 to 5, this initial model likely has **room for improvement**. The linear regression model may struggle to capture **non-linear relationships** in the data, and additional engineered features could enhance predictive performance.
+
+In the next step, we will improve upon this baseline by incorporating more features and optimizing the model through feature engineering and hyperparameter tuning.
+
 
 ---
 
