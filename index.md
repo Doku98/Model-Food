@@ -129,16 +129,39 @@ The distribution of average ratings is skewed toward higher values, with the maj
 
 ### Interesting Aggregates
 
-#### Mean Ratings and Calories by Cooking Time
+#### Average Number Of Steps vs. Average Rating
+<iframe
+  src="assets/n_steps_on_rating.html"
+  width="800"
+  height="600"
+  frameborder="0">
+</iframe>
 
-| Cooking Time (minutes) | Mean Rating | Mean Calories |
-|------------------------|-------------|---------------|
-| 0-15                   | 4.8         | 230           |
-| 16-30                  | 4.7         | 320           |
-| 31-60                  | 4.5         | 410           |
-| 60+                    | 4.2         | 520           |
+<iframe
+  src="assets/n_step_binnded_rating_avg.html"
+  width="800"
+  height="600"
+  frameborder="0">
+</iframe>
 
-This pivot table reveals that recipes with shorter cooking times generally have higher ratings and lower calories, emphasizing a preference for quick, healthy recipes.
+
+#### Average Cooking Time vs. Average Rating
+<iframe
+  src="assets/cooking_time_on_rating.html"
+  width="800"
+  height="600"
+  frameborder="0">
+</iframe>
+
+<iframe
+  src="assets/minutes_binnded_rating_avg.html"
+  width="800"
+  height="600"
+  frameborder="0">
+</iframe>
+
+
+
 
 ---
 
