@@ -3,4 +3,4 @@ plugins:
   - jekyll-remote-theme  # add this line to the plugins list if you already have one
 
 # Custom site title
-title: "Exploring Recipe Ratings and Features"
+title: "Investigation of Recipe Ratings and Features"
