@@ -79,14 +79,18 @@ The analysis began by merging the `recipes` and `interactions` datasets based on
   - **`rating_bin`**: Recipes were categorized into bins (`0-1`, `1-2`, `2-3`, `3-4`, `4-5`) based on `avg_rating` for streamlined analysis.
 
 **Cleaned Data Preview:**
-| name                              | minutes | contributor_id | submitted   | tags  | n_steps | steps  | description | ingredients | n_ingredients | user_id    | recipe_id  | date       | rating | review | avg_rating | calories | total_fat | sugar | protein | saturated_fat | carbohydrates | n_description | rating_bin | low_steps | filling_factor | fat_sugar_balance | prop_sugar | prop_protein | ingredient_density |
-|-----------------------------------|---------|---------------|------------|-------|---------|--------|-------------|-------------|--------------|-----------|-----------|------------|--------|--------|------------|----------|-----------|-------|---------|--------------|---------------|--------------|------------|-----------|----------------|-------------------|------------|-------------|--------------------|
-| 1 brownies in the world best ever | 40      | 985201        | 2008-10-27 | [...] | 10      | [...]  | [...]       | [...]       | 9            | 3.8658e+05 | 333281.0  | 2008-11-19 | 4.0    | [...]  | 4.0        | 138.4    | 10.0      | 50.0  | 3.0     | 3.0          | 19.0          | 260          | 3-4        | True      | -0.202312       | 0.196078          | 1.0        | 1.0         | 0.219512           |
-| 1 in canada chocolate chip cookies | 45      | 1848091       | 2011-04-11 | [...] | 12      | [...]  | [...]       | [...]       | 11           | 4.2468e+05 | 453467.0  | 2012-01-26 | 5.0    | [...]  | 5.0        | 595.1    | 46.0      | 211.0 | 22.0    | 13.0         | 51.0          | 230          | 4-5        | False     | -0.231894       | 0.216981          | 1.0        | 1.0         | 0.239130           |
-| 412 broccoli casserole            | 40      | 50969         | 2008-05-30 | [...] | 6       | [...]  | [...]       | [...]       | 9            | 2.9782e+04 | 306168.0  | 2008-12-31 | 5.0    | [...]  | 5.0        | 194.8    | 20.0      | 6.0   | 32.0    | 22.0         | 36.0          | 369          | 4-5        | True      | 0.318275        | 2.857143          | 1.0        | 1.0         | 0.219512           |
-| 412 broccoli casserole            | 40      | 50969         | 2008-05-30 | [...] | 6       | [...]  | [...]       | [...]       | 9            | 1.19628e+06 | 306168.0  | 2009-04-13 | 5.0    | [...]  | 5.0        | 194.8    | 20.0      | 6.0   | 32.0    | 22.0         | 36.0          | 369          | 4-5        | True      | 0.318275        | 2.857143          | 1.0        | 1.0         | 0.219512           |
-| 412 broccoli casserole            | 40      | 50969         | 2008-05-30 | [...] | 6       | [...]  | [...]       | [...]       | 9            | 7.68828e+05 | 306168.0  | 2013-08-02 | 5.0    | [...]  | 5.0        | 194.8    | 20.0      | 6.0   | 32.0    | 22.0         | 36.0          | 369          | 4-5        | True      | 0.318275        | 2.857143          | 1.0        | 1.0         | 0.219512           |
----
+Note: This dataset preview has been split into two tables for better readability. However, all data belongs to a single table in the cleaned dataset. The first section contains general recipe information, while the second section includes ratings and engineered features.
+| name                         | minutes | contributor_id | submitted  | tags        | n_steps | steps |
+|------------------------------|---------|---------------|------------|------------|---------|-------|
+| World's Best Brownies        | 40      | 985201        | 2008-10-27 | [...]      | 10      | [...] |
+| Chocolate Chip Cookies       | 45      | 1848091       | 2011-04-11 | [...]      | 12      | [...] |
+| Easy Broccoli Casserole      | 40      | 50969         | 2008-05-30 | [...]      | 6       | [...] |
+
+| avg_rating | calories | total_fat | sugar | protein | saturated_fat | carbohydrates | filling_factor | fat_sugar_balance | ingredient_density |
+|------------|----------|-----------|-------|---------|---------------|--------------|----------------|-------------------|--------------------|
+| 4.0        | 138.4    | 10.0      | 50.0  | 3.0     | 3.0           | 19.0         | 0.196078       | 1.0               | 0.219512          |
+| 5.0        | 595.1    | 46.0      | 211.0 | 22.0    | 13.0          | 51.0         | 0.216981       | 1.0               | 0.239130          |
+| 5.0        | 194.8    | 20.0      | 6.0   | 32.0    | 22.0          | 36.0         | 2.857143       | 1.0               | 0.219512          |
 
 ### Univariate Analysis
 
