@@ -51,7 +51,7 @@ Through this analysis, I investigated the effects of the following features on r
 
 Insights from this analysis could help recipe creators optimize their dishes to better meet user preferences, ultimately saving valuable cooking time while maximizing satisfaction.
 
-## Step 2: Data Cleaning and Exploratory Data Analysis
+## Data Cleaning and Exploratory Data Analysis
 
 ### Data Cleaning
 
@@ -165,7 +165,7 @@ Similar to the steps-based box plot, this visualization groups recipes by binned
 
 ---
 
-## Step 3: Assessment of Missingness
+## Assessment of Missingness
 
 ### NMAR Analysis
 Based on the data and its generating process, the missingness in 'description' and 'review' is likely NMAR, meaning that the reason for missing values is inherent to the unobserved factors related to the missing values themselves rather than the observed data.
@@ -201,7 +201,7 @@ This test investigates whether missing values in the 'review' column are related
 
 ---
 
-## Step 4: Hypothesis Testing
+## Hypothesis Testing
 
 The primary hypothesis examined whether the number of preparation steps affects recipe ratings.
 
@@ -223,7 +223,7 @@ The permutation test yielded an observed statistic of -0.0097 and a p-value of 0
 
 ---
 
-## Step 5: Framing a Prediction Problem
+## Framing a Prediction Problem
 
 From the previous analysis, we explored various factors that may influence recipe ratings. However, rather than just identifying relationships, can we build a model that **predicts** a recipe’s rating based on its attributes? If successful, such a model could help chefs, food bloggers, and recipe developers optimize their recipes to align with user preferences.
 
@@ -252,7 +252,7 @@ By developing this predictive model, we aim to gain deeper insights into the cha
 
 ---
 
-## Step 6: Baseline Model
+## Baseline Model
 
 To establish a baseline for predicting recipe ratings, a **Linear Regression** model was trained using two fundamental features: **number of steps (`n_steps`)** and **preparation time (`minutes`)**. These features were chosen based on their potential influence on recipe complexity and user satisfaction.
 
@@ -281,7 +281,7 @@ In the next step, we will improve upon this baseline by incorporating more featu
 
 ---
 
-## Step 7: Final Model
+## Final Model
 
 ### **Improving the Model**
 From the baseline model, we identified that `n_steps` and `minutes` had limited predictive power on their own. To improve our predictions, we incorporated additional engineered features and used **Gradient Boosting Regression**, an ensemble learning technique that builds decision trees sequentially, where each tree corrects the errors of the previous ones. This method is well-suited for handling **complex, non-linear relationships in data**.
