@@ -107,13 +107,6 @@ Note: This dataset preview has been split into two tables for better readability
   frameborder="0">
 </iframe>
 
-<iframe
-  src="assets/n_step_histagram.html"
-  width="800"
-  height="600"
-  frameborder="0">
-</iframe>
-
 
 This histogram illustrates the distribution of recipe preparation times. Most recipes can be prepared in under 60 minutes, indicating a user preference for quicker recipes.
 
@@ -123,7 +116,12 @@ This histogram illustrates the distribution of recipe preparation times. Most re
 
 #### Relationship Between Number of Steps and Recipe Ratings
 
-*Embed Plotly Box Plot here*
+<iframe
+  src="assets/n_step_histagram.html"
+  width="800"
+  height="600"
+  frameborder="0">
+</iframe>
 
 This box plot demonstrates that recipes with fewer preparation steps tend to receive higher ratings, suggesting a user preference for simpler, easier-to-follow recipes.
 
